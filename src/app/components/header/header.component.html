@@ -1,0 +1,21 @@
+<mat-toolbar color="primary" class="mat-elevation-z6">
+  <span>Mes bandes dessinées</span>
+  <span class="spacer"></span>
+  <a mat-flat-button routerLink="/comics" color="primary">
+    <mat-icon>import_contacts</mat-icon><span class="title-button">Consultation</span>
+  </a>
+  <a mat-flat-button color="primary" [matMenuTriggerFor]="adminMenu">
+    <mat-icon>settings</mat-icon><span class="title-button">Administration</span>
+    <mat-menu #adminMenu="matMenu">
+      <button mat-menu-item routerLink="admin/auteurs">Auteurs</button>
+      <button mat-menu-item routerLink="admin/dessinateurs">Dessinateurs</button>
+      <button mat-menu-item routerLink="admin/editeurs">Editeurs</button>
+      <button mat-menu-item routerLink="admin/genres">Genres</button>
+      <button mat-menu-item routerLink="admin/scenaristes">Scenaristes</button>
+      <button mat-menu-item routerLink="admin/series">Séries</button>
+    </mat-menu>
+  </a>
+  <a mat-flat-button routerLink="/stats" color="primary">
+    <mat-icon>show_chart</mat-icon><span class="title-button">Statistiques</span>
+  </a>
+</mat-toolbar>

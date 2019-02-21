@@ -1,0 +1,134 @@
+<h2>
+  Bandes dessinées > {{title}}
+</h2>
+<mat-card class="form-card">
+  <form [formGroup]="comicsFormGroup">
+    <div class="form-col-left">
+      <mat-form-field class="left-field">
+        <mat-label>Titre</mat-label>
+        <input matInput formControlName="name">
+      </mat-form-field>
+      <br />
+      <mat-form-field class="left-field">
+        <mat-label>Commentaires</mat-label>
+        <textarea rows="4"  matInput formControlName="comments"></textarea>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="field-filter left-field">
+        <mat-select placeholder="Genre">
+          <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br />
+      <mat-form-field class="field-filter left-field">
+        <mat-select placeholder="Série">
+          <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="form-col-right">
+      <mat-tab-group class="form-mat-tab-group">
+        <mat-tab label="Créateurs">
+          <mat-form-field class="field-filter createur-field margin-top">
+            <mat-select placeholder="Créateur">
+              <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br />
+          <mat-form-field class="field-filter createur-field">
+            <mat-select placeholder="Scénariste">
+              <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br />
+          <mat-form-field class="field-filter createur-field">
+            <mat-select placeholder="Dessinateur">
+              <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </mat-tab>
+        <mat-tab label="Editeurs">
+          <h4>Editions Originales</h4>
+          <mat-form-field class="field-filter editeur-field-35">
+            <mat-select placeholder="Maison d'édition">
+              <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="editeur-field-35">
+            <mat-label>Date de sortie</mat-label>
+            <input matInput [matDatepicker]="sortieEdition" placeholder="jj/mm/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="sortieEdition"></mat-datepicker-toggle>
+            <mat-datepicker #sortieEdition></mat-datepicker>
+          </mat-form-field>
+          <mat-slide-toggle
+            [checked]="checked">
+            Dédicacée
+          </mat-slide-toggle>
+          <mat-form-field class="editeur-field-40">
+            <mat-label>Date d'impression</mat-label>
+            <input matInput [matDatepicker]="impressionEdition" placeholder="jj/mm/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="impressionEdition"></mat-datepicker-toggle>
+            <mat-datepicker #impressionEdition></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="editeur-field-40">
+            <mat-label>Numéro ISBN</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+          <h4>Rééditions</h4>
+          <mat-form-field class="field-filter editeur-field-35">
+            <mat-select placeholder="Maison d'édition">
+              <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="editeur-field-35">
+            <mat-label>Date de sortie</mat-label>
+            <input matInput [matDatepicker]="sortieReedition" placeholder="jj/mm/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="sortieReedition"></mat-datepicker-toggle>
+            <mat-datepicker #sortieReedition></mat-datepicker>
+          </mat-form-field>
+          <mat-slide-toggle
+            [checked]="checked">
+            Dédicacée
+          </mat-slide-toggle>
+          <mat-form-field class="editeur-field-40">
+            <mat-label>Date d'impression</mat-label>
+            <input matInput [matDatepicker]="impressionReedition" placeholder="jj/mm/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="impressionReedition"></mat-datepicker-toggle>
+            <mat-datepicker #impressionReedition></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="editeur-field-40">
+            <mat-label>Numéro ISBN</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+        </mat-tab>
+        <mat-tab label="Prêts">
+          <h4>Prêts effectués</h4>
+          <mat-form-field class="pret-field-30">
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="name">
+          </mat-form-field>
+          <mat-form-field class="pret-field-30">
+            <mat-label>Date de début</mat-label>
+            <input matInput formControlName="name" [matDatepicker]="dateDebut" placeholder="jj/mm/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="dateDebut"></mat-datepicker-toggle>
+            <mat-datepicker #dateDebut></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field class="pret-field-30">
+            <mat-label>Date de fin</mat-label>
+            <input matInput formControlName="name" [matDatepicker]="dateFin" placeholder="jj/mm/aaaa">
+            <mat-datepicker-toggle matSuffix [for]="dateFin"></mat-datepicker-toggle>
+            <mat-datepicker #dateFin></mat-datepicker>
+          </mat-form-field>
+        </mat-tab>
+      </mat-tab-group>
+      <div class="action-buttons">
+        <button mat-button color="warn" routerLink="/comics">
+          <span translate>Annuler</span>
+        </button>
+        <button mat-button color="primary" (click)="save()">
+          <span translate>Sauvegarder</span>
+        </button>
+      </div>
+    </div>
+  </form>
+</mat-card>
