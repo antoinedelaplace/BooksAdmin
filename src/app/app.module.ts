@@ -1,9 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { HttpClientModule } from '@angular/common/http';
 
 import {MaterialModule} from './app-material.module';
 import { AppRoutingModule } from './app-routing.module';
+
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import {MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 
 import { AppComponent } from './components/app.component';
 import { AuteursComponent } from './components/admin/auteurs/auteurs.component';
@@ -24,8 +28,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AddEditDialogComponent } from './components/common/add-edit-dialog/add-edit-dialog.component';
 import { ComicsFormComponent } from './components/comics/comics-form/comics-form.component';
 
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
-import {MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
+import {StatsService} from './services/stats.service';
+
 
 export const MyDateFormat = {
   parse: {
@@ -68,12 +72,14 @@ export const MyDateFormat = {
     BrowserAnimationsModule,
     AppRoutingModule,
     MaterialModule,
+    HttpClientModule,
     ReactiveFormsModule,
     MatMomentDateModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
     {provide: MAT_DATE_FORMATS, useValue: MyDateFormat},
+    StatsService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,48 +1,13 @@
 <h2>Statistiques</h2>
 <mat-accordion class="stats-accordion">
-  <mat-expansion-panel>
+  <mat-expansion-panel *ngFor="let stats of detailsStats;" [disabled]="stats.disabled" (opened)="fillCurrentStats(stats)">
     <mat-expansion-panel-header>
-        <span class="title-badge" [matBadge]="nbBandesDessinees" matBadgePosition="above before">Bandes dessinées</span>
+      <span class="title-badge" [matBadge]="stats.totalStats" matBadgePosition="above before">{{ stats.title}}</span>
     </mat-expansion-panel-header>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <span class="title-badge" [matBadge]="nbGenres" matBadgePosition="above before">Genres</span>
-    </mat-expansion-panel-header>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <span class="title-badge" [matBadge]="nbSeries" matBadgePosition="above before">Séries</span>
-    </mat-expansion-panel-header>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <span class="title-badge" [matBadge]="nbCreateurs" matBadgePosition="above before">Créateurs</span>
-    </mat-expansion-panel-header>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <span class="title-badge" [matBadge]="nbScenaristes" matBadgePosition="above before">Scénaristes</span>
-    </mat-expansion-panel-header>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <span class="title-badge" [matBadge]="nbDessinateurs" matBadgePosition="above before">Dessinateurs</span>
-    </mat-expansion-panel-header>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <span class="title-badge" [matBadge]="nbMaisonsEditions" matBadgePosition="above before">Maison d'éditions</span>
-    </mat-expansion-panel-header>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <span class="title-badge" [matBadge]="nbPremieresEditions" matBadgePosition="above before">Premières éditions</span>
-    </mat-expansion-panel-header>
-  </mat-expansion-panel>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <span class="title-badge" [matBadge]="nbReditions" matBadgePosition="above before">Réeditions</span>
-    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+      <div class="div-stats" *ngFor="let stat of stats.stats">
+        <span class="title-badge" [matBadge]="stat.nombre" matBadgePosition="above before">{{ stat.nom | titlecase}}</span>
+      </div>
+    </ng-template>
   </mat-expansion-panel>
 </mat-accordion>
