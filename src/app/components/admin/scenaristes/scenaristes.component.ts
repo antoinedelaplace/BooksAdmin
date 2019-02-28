@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class ScenaristesComponent implements OnInit {
 
   private title = 'Scenaristes';
+  private componentName = 'scenaristes';
 
   constructor() { }
 

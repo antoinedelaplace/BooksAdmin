@@ -29,6 +29,7 @@ import { AddEditDialogComponent } from './components/common/add-edit-dialog/add-
 import { ComicsFormComponent } from './components/comics/comics-form/comics-form.component';
 
 import {StatsService} from './services/stats.service';
+import {AdminService} from './services/admin.service';
 
 
 export const MyDateFormat = {
@@ -79,7 +80,8 @@ export const MyDateFormat = {
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
     {provide: MAT_DATE_FORMATS, useValue: MyDateFormat},
-    StatsService
+    StatsService,
+    AdminService
   ],
   bootstrap: [AppComponent]
 })

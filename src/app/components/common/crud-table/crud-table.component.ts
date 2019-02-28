@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {MatPaginator, MatTableDataSource, MatSort, MatDialog} from '@angular/material';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {AddEditDialogComponent} from '../add-edit-dialog/add-edit-dialog.component';
+import {AdminService} from '../../../services/admin.service';
 
 @Component({
   selector: 'app-crud-table',
@@ -10,54 +11,23 @@ import {AddEditDialogComponent} from '../add-edit-dialog/add-edit-dialog.compone
 })
 export class CrudTableComponent implements OnInit {
 
-  public crudDataSource: MatTableDataSource<Test>;
+  public crudDataSource: MatTableDataSource<AdminData>;
   public displayedColumns: string[];
 
   @Input() title: string;
+  @Input() componentName: string;
   @ViewChild(MatPaginator) public paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private adminService: AdminService
   ) {
   }
 
   ngOnInit() {
     this.displayedColumns = ['name', 'description', 'actions'];
-    this.crudDataSource = new MatTableDataSource<Test>([
-      {
-        id: '1',
-        name: 'test 1',
-        description: 'description test 1'
-      },
-      {
-        id: '2',
-        name: 'test 2',
-        description: 'description test 2'
-      },
-      {
-        id: '3',
-        name: 'test 3',
-        description: 'description test 3'
-      },
-      {
-        id: '4',
-        name: 'test 4',
-        description: 'description test 4'
-      },
-      {
-        id: '5',
-        name: 'test 5',
-        description: 'description test 5'
-      },
-      {
-        id: '6',
-        name: 'test 6',
-        description: 'description test 6'
-      }
-    ]);
-    this.crudDataSource.paginator = this.paginator;
-    this.crudDataSource.sort = this.sort;
+    this.initDatas();
   }
 
   public applyFilter(filterValue: string) {
@@ -84,7 +54,7 @@ export class CrudTableComponent implements OnInit {
       });
   }
 
-  public editElement(element: Test): void {
+  public editElement(element: AdminData): void {
     const editDialog = this.dialog.open(AddEditDialogComponent, {
       data: {
         name: element.name,
@@ -102,7 +72,7 @@ export class CrudTableComponent implements OnInit {
       });
   }
 
-  public deleteElement(element: Test): void {
+  public deleteElement(element: AdminData): void {
     const removeDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         elementName: element.name
@@ -120,9 +90,43 @@ export class CrudTableComponent implements OnInit {
         }
       });
   }
+
+  private initDatas(): void {
+    let getDataFunction;
+
+    switch (this.componentName) {
+      case 'auteurs':
+        getDataFunction = this.adminService.getAuteursAdmin();
+        break;
+      case 'dessinateurs':
+        getDataFunction = this.adminService.getDessinateursAdmin();
+        break;
+      case 'editeurs':
+        getDataFunction = this.adminService.getMaisonEditionsAdmin();
+        break;
+      case 'genres':
+        getDataFunction = this.adminService.getGenresAdmin();
+        break;
+      case 'scenaristes':
+        getDataFunction = this.adminService.getScenaristesAdmin();
+        break;
+      case 'series':
+        getDataFunction = this.adminService.getSeriesAdmin();
+        break;
+    }
+
+    if (getDataFunction) {
+      getDataFunction.subscribe(data => {
+        console.log(data.response);
+        this.crudDataSource = new MatTableDataSource<AdminData>(data.response);
+        this.crudDataSource.paginator = this.paginator;
+        this.crudDataSource.sort = this.sort;
+      });
+    }
+  }
 }
 
-export interface Test {
+export interface AdminData {
   id: string;
   name: string;
   description: string;

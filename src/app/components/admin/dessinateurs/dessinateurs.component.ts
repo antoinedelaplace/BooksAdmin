@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class DessinateursComponent implements OnInit {
 
   private title = 'Dessinateurs';
+  private componentName = 'dessinateurs';
 
   constructor() { }
 

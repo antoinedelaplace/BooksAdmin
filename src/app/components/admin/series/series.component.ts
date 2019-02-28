@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class SeriesComponent implements OnInit {
 
   private title = 'Series';
+  private componentName = 'series';
 
   constructor() { }
 

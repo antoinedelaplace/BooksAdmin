@@ -1,6 +1,6 @@
 const express       = require('express');
-const routes        = require('./routes/statsRoutes');
-const bodyParser    = require('body-parser');
+const statsRoutes   = require('./routes/statsRoutes');
+const adminRoutes   = require('./routes/adminRoutes');
 const cors          = require('cors');
 
 const app           = express();
@@ -9,8 +9,8 @@ const port          = 3000;
 app.use(cors());
 
 //API
-routes(app);
-
+statsRoutes(app);
+adminRoutes(app);
 
 //Serveur
 app.get('/', function(req, res) {
