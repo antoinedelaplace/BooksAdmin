@@ -5,3 +5,10 @@ export interface JSONResponse {
     error: string;
     response: any;
 }
+
+export interface AdminData {
+    id: number;
+    name: string;
+    description: string;
+    insertId?: number;
+}

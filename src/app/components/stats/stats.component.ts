@@ -1,6 +1,19 @@
 import {Component, OnInit} from '@angular/core';
 import {StatsService} from '../../services/stats.service';
 
+export interface DetailStats {
+  name: string;
+  disabled: boolean;
+  title: string;
+  key: string;
+  stats: Stat[];
+}
+
+export interface Stat {
+  nombre: string;
+  name: string;
+}
+
 @Component({
   selector: 'app-stats',
   templateUrl: './stats.component.html',
@@ -22,48 +35,9 @@ export class StatsComponent implements OnInit {
   }
 
   public fillCurrentStats(stat: DetailStats): void {
-    switch (stat.name) {
-      case 'genres':
-        this.statsService.getGenresStats().subscribe( stats => {
-          stat.stats = stats.response;
-        });
-        break;
-      case 'series':
-        this.statsService.getSeriesStats().subscribe( stats => {
-          stat.stats = stats.response;
-        });
-        break;
-      case 'reeditions':
-        this.statsService.getReeditionsStats().subscribe( stats => {
-          stat.stats = stats.response;
-        });
-        break;
-      case 'editionsOriginales':
-        this.statsService.getEditionsOriginalesStats().subscribe( stats => {
-          stat.stats = stats.response;
-        });
-        break;
-      case 'maisonEditions':
-        this.statsService.getMaisonEditionsStats().subscribe( stats => {
-          stat.stats = stats.response;
-        });
-        break;
-      case 'dessinateurs':
-        this.statsService.getDessinateursStats().subscribe( stats => {
-          stat.stats = stats.response;
-        });
-        break;
-      case 'scenaristes':
-        this.statsService.getScenaristesStats().subscribe( stats => {
-          stat.stats = stats.response;
-        });
-        break;
-      case 'auteurs':
-        this.statsService.getAuteursStats().subscribe( stats => {
-          stat.stats = stats.response;
-        });
-        break;
-    }
+    this.statsService.getDetailsStats(stat.name).subscribe(stats => {
+      stat.stats = stats.response;
+    });
   }
 
   private initDetailsStats(): void {
@@ -130,18 +104,4 @@ export class StatsComponent implements OnInit {
       }
     ];
   }
-
-}
-
-export interface DetailStats {
-  name: string;
-  disabled: boolean;
-  title: string;
-  key: string;
-  stats: Stat[];
-}
-
-export interface Stat {
-  nombre: string;
-  name: string;
 }

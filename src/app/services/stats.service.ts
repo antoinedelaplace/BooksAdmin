@@ -14,36 +14,7 @@ export class StatsService {
         return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.statsUrl}`);
     }
 
-    public getAuteursStats(): Observable<JSONResponse> {
-        return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.statsUrl}/auteurs`);
+    public getDetailsStats(statsName: string): Observable<JSONResponse> {
+        return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.statsUrl}/${statsName}`);
     }
-
-    public getDessinateursStats(): Observable<JSONResponse> {
-        return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.statsUrl}/dessinateurs`);
-    }
-
-    public getEditionsOriginalesStats(): Observable<JSONResponse> {
-        return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.statsUrl}/editionsOriginales`);
-    }
-
-    public getGenresStats(): Observable<JSONResponse>  {
-        return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.statsUrl}/genres`);
-    }
-
-    public getMaisonEditionsStats(): Observable<JSONResponse> {
-        return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.statsUrl}/maisonEditions`);
-    }
-
-    public getReeditionsStats(): Observable<JSONResponse> {
-        return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.statsUrl}/reeditions`);
-    }
-
-    public getScenaristesStats(): Observable<JSONResponse> {
-        return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.statsUrl}/scenaristes`);
-    }
-
-    public getSeriesStats(): Observable<JSONResponse> {
-        return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.statsUrl}/series`);
-    }
-
 }

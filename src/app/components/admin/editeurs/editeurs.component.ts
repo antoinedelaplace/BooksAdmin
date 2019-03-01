@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class EditeursComponent implements OnInit {
 
   private title = 'Editeurs';
-  private componentName = 'editeurs';
+  private componentName = 'maisonEditions';
 
   constructor() { }
 

@@ -3,6 +3,7 @@ import {MatPaginator, MatTableDataSource, MatSort, MatDialog} from '@angular/mat
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {AddEditDialogComponent} from '../add-edit-dialog/add-edit-dialog.component';
 import {AdminService} from '../../../services/admin.service';
+import {AdminData} from '../../../services/config-api';
 
 @Component({
   selector: 'app-crud-table',
@@ -44,12 +45,15 @@ export class CrudTableComponent implements OnInit {
     addDialog.afterClosed()
       .subscribe(newElement => {
         if (newElement) {
-          this.crudDataSource.data.push({
-            id: '5',
-            name: newElement.name,
-            description: newElement.description
+          this.adminService.insertElement(this.componentName, newElement).subscribe( response => {
+              this.crudDataSource.data.push({
+                id: response.insertId,
+                name: newElement.name,
+                description: newElement.description
+              });
+              this.crudDataSource._updateChangeSubscription();
+              this.crudDataSource.paginator.lastPage();
           });
-          this.crudDataSource._updateChangeSubscription();
         }
       });
   }
@@ -92,42 +96,11 @@ export class CrudTableComponent implements OnInit {
   }
 
   private initDatas(): void {
-    let getDataFunction;
-
-    switch (this.componentName) {
-      case 'auteurs':
-        getDataFunction = this.adminService.getAuteursAdmin();
-        break;
-      case 'dessinateurs':
-        getDataFunction = this.adminService.getDessinateursAdmin();
-        break;
-      case 'editeurs':
-        getDataFunction = this.adminService.getMaisonEditionsAdmin();
-        break;
-      case 'genres':
-        getDataFunction = this.adminService.getGenresAdmin();
-        break;
-      case 'scenaristes':
-        getDataFunction = this.adminService.getScenaristesAdmin();
-        break;
-      case 'series':
-        getDataFunction = this.adminService.getSeriesAdmin();
-        break;
-    }
-
-    if (getDataFunction) {
-      getDataFunction.subscribe(data => {
-        console.log(data.response);
-        this.crudDataSource = new MatTableDataSource<AdminData>(data.response);
-        this.crudDataSource.paginator = this.paginator;
-        this.crudDataSource.sort = this.sort;
-      });
-    }
+    this.adminService.getElements(this.componentName).subscribe(data => {
+      console.log(data.response);
+      this.crudDataSource = new MatTableDataSource<AdminData>(data.response);
+      this.crudDataSource.paginator = this.paginator;
+      this.crudDataSource.sort = this.sort;
+    });
   }
-}
-
-export interface AdminData {
-  id: string;
-  name: string;
-  description: string;
 }
