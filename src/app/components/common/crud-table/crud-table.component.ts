@@ -38,7 +38,9 @@ export class CrudTableComponent implements OnInit {
 
   public addElement(): void {
     const addDialog = this.dialog.open(AddEditDialogComponent, {
-      data: {},
+      data: {
+          forbiddenNames: this.crudDataSource.data.map(field => field.name)
+      },
       minWidth: 400
     });
 

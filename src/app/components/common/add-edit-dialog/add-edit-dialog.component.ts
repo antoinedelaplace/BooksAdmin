@@ -1,12 +1,14 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {isDoublonValidator} from '../../../directives/form-validators.directive';
 
 export interface AddEditData {
   title: string;
   id: string;
   name: string;
   description: string;
+  forbiddenNames?: string[];
 }
 
 @Component({
@@ -22,7 +24,8 @@ export class AddEditDialogComponent {
     public dialogRef: MatDialogRef<AddEditDialogComponent>,
   ) {
     this.nameDescriptionFormGroup = new FormGroup({
-      name: new FormControl(this.data && this.data.name ? this.data.name : ''),
+      name: new FormControl(this.data && this.data.name ? this.data.name : '',
+          [Validators.required, isDoublonValidator(this.data.forbiddenNames)]),
       description: new FormControl(this.data && this.data.description ? this.data.description : ''),
     });
     if (this.data && !this.data.title) {

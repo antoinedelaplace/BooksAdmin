@@ -7,6 +7,7 @@
       <mat-label>Nom</mat-label>
       <input matInput name="name" placeholder="Nom" formControlName="name" required>
       <mat-error *ngIf="nameDescriptionFormGroup.get('name').hasError('required')">Le nom est obligatoire</mat-error>
+      <mat-error *ngIf="nameDescriptionFormGroup.get('name').hasError('forbiddenValue')">Ce nom existe déjà</mat-error>
     </mat-form-field>
     <mat-form-field class="full-width">
       <mat-label>Description</mat-label>
