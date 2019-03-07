@@ -115,7 +115,6 @@ export class CrudTableComponent implements OnInit {
 
   private initDatas(): void {
     this.adminService.getElements(this.componentName).subscribe(data => {
-      console.log(data.response);
       this.crudDataSource = new MatTableDataSource<AdminData>(data.response);
       this.crudDataSource.paginator = this.paginator;
       this.crudDataSource.sort = this.sort;
