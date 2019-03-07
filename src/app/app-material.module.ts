@@ -18,7 +18,8 @@ import {
   MatSelectModule,
   MatTabsModule,
   MatSlideToggleModule,
-  MatDatepickerModule
+  MatDatepickerModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import {NgModule} from '@angular/core';
@@ -44,7 +45,8 @@ import {NgModule} from '@angular/core';
     MatTabsModule,
     MatSlideToggleModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatSnackBarModule
   ],
   exports: [
     MatButtonModule,
@@ -67,7 +69,8 @@ import {NgModule} from '@angular/core';
     MatTabsModule,
     MatSlideToggleModule,
     MatDatepickerModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    MatSnackBarModule
   ],
 })
 export class MaterialModule { }

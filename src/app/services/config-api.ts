@@ -1,14 +1,14 @@
 export const apiURL = 'http://localhost:3000';
 
 export interface JSONResponse {
-    status: string;
+    status: number;
     error: string;
     response: any;
 }
 
 export interface AdminData {
-    id: number;
+    id: string;
     name: string;
     description: string;
-    insertId?: number;
+    insertId?: string;
 }

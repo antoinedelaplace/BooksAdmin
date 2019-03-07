@@ -17,8 +17,11 @@ export class AdminService {
         return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.adminUrl}/${componentName}`);
     }
 
-    public insertElement(componentName: string, newElement: AdminData): Observable<AdminData> {
-        return this.http.post<AdminData>(`${apiURL}${this.adminUrl}/${componentName}`, newElement, this.jsonHttpOptions);
+    public insertElement(componentName: string, newElement: AdminData): Observable<JSONResponse> {
+        return <Observable<JSONResponse>>this.http.post(`${apiURL}${this.adminUrl}/${componentName}`, newElement, this.jsonHttpOptions);
     }
 
+    public removeElement(componentName: string, element: AdminData): Observable<JSONResponse> {
+        return <Observable<JSONResponse>>this.http.delete(`${apiURL}${this.adminUrl}/${componentName}`, {params : { id : element.id }});
+    }
 }

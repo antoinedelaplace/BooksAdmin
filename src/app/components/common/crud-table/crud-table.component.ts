@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
-import {MatPaginator, MatTableDataSource, MatSort, MatDialog} from '@angular/material';
+import {MatPaginator, MatTableDataSource, MatSort, MatDialog, MatSnackBar} from '@angular/material';
 import {ConfirmDialogComponent} from '../confirm-dialog/confirm-dialog.component';
 import {AddEditDialogComponent} from '../add-edit-dialog/add-edit-dialog.component';
 import {AdminService} from '../../../services/admin.service';
@@ -22,6 +22,7 @@ export class CrudTableComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
+    public snackBar: MatSnackBar,
     private adminService: AdminService
   ) {
   }
@@ -49,7 +50,7 @@ export class CrudTableComponent implements OnInit {
         if (newElement) {
           this.adminService.insertElement(this.componentName, newElement).subscribe( response => {
               this.crudDataSource.data.push({
-                id: response.insertId,
+                id: response.response.insertId,
                 name: newElement.name,
                 description: newElement.description
               });
@@ -89,10 +90,19 @@ export class CrudTableComponent implements OnInit {
     removeDialog.afterClosed()
       .subscribe(removeResponse => {
         if (removeResponse && removeResponse.confirm) {
-          const index = this.crudDataSource.data.map(item => item.id).indexOf(element.id);
-          this.crudDataSource.data.splice(index, 1);
-          this.crudDataSource._updateChangeSubscription();
-          this.crudDataSource.paginator.firstPage();
+            this.adminService.removeElement(this.componentName, element).subscribe(response => {
+                console.log(response);
+                if (response.status === 200) {
+                    const index = this.crudDataSource.data.map(item => item.id).indexOf(element.id);
+                    this.crudDataSource.data.splice(index, 1);
+                    this.crudDataSource._updateChangeSubscription();
+                    this.crudDataSource.paginator.firstPage();
+                } else {
+                    this.snackBar.open(response.error, 'Fermer', {
+                        duration: 10000,
+                    });
+                }
+            });
         }
       });
   }
