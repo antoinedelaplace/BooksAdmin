@@ -34,6 +34,13 @@ export class AddEditDialogComponent {
   }
 
   public save(): void {
-    this.dialogRef.close(this.nameDescriptionFormGroup.value);
+    if (this.data.id) {
+      this.dialogRef.close({
+        id: this.data.id,
+        ...this.nameDescriptionFormGroup.value
+      });
+    } else {
+      this.dialogRef.close(this.nameDescriptionFormGroup.value);
+    }
   }
 }

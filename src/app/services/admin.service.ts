@@ -24,4 +24,8 @@ export class AdminService {
     public removeElement(componentName: string, element: AdminData): Observable<JSONResponse> {
         return <Observable<JSONResponse>>this.http.delete(`${apiURL}${this.adminUrl}/${componentName}`, {params : { id : element.id }});
     }
+
+    public editElement(componentName: string, editElement: AdminData): Observable<JSONResponse> {
+        return <Observable<JSONResponse>>this.http.patch(`${apiURL}${this.adminUrl}/${componentName}`, editElement, this.jsonHttpOptions);
+    }
 }

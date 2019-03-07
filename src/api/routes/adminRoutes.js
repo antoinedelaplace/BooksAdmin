@@ -1,36 +1,45 @@
 'use strict';
 
 module.exports = function(app) {
-    const adminController = require('../controllers/adminControllers');
+    const adminGetController = require('../controllers/adminGetControllers');
+    const adminDeleteController = require('../controllers/adminDeleteControllers');
+    const adminEditController = require('../controllers/adminEditControllers');
+    const adminAddController = require('../controllers/adminAddControllers');
 
     app.route('/admin/auteurs')
-        .get(adminController.getAuteursAdmin)
-        .post(adminController.addAuteur)
-        .delete(adminController.deleteAuteur);
+        .get(adminGetController.getAuteursAdmin)
+        .post(adminAddController.addAuteur)
+        .delete(adminDeleteController.deleteAuteur)
+        .patch(adminEditController.patchAuteur);
 
     app.route('/admin/dessinateurs')
-        .get(adminController.getDessinateursAdmin)
-        .post(adminController.addDessinateur)
-        .delete(adminController.deleteDessinateur);
+        .get(adminGetController.getDessinateursAdmin)
+        .post(adminAddController.addDessinateur)
+        .delete(adminDeleteController.deleteDessinateur)
+        .patch(adminEditController.patchDessinateur);
 
     app.route('/admin/maisonEditions')
-        .get(adminController.getMaisonEditionsAdmin)
-        .post(adminController.addMaisonEditions)
-        .delete(adminController.deleteMaisonEditions);
+        .get(adminGetController.getMaisonEditionsAdmin)
+        .post(adminAddController.addMaisonEditions)
+        .delete(adminDeleteController.deleteMaisonEditions)
+        .patch(adminEditController.patchMaisonEditions);
 
     app.route('/admin/genres')
-        .get(adminController.getGenresAdmin)
-        .post(adminController.addGenre)
-        .delete(adminController.deleteGenre);
+        .get(adminGetController.getGenresAdmin)
+        .post(adminAddController.addGenre)
+        .delete(adminDeleteController.deleteGenre)
+        .patch(adminEditController.patchGenre);
 
     app.route('/admin/scenaristes')
-        .get(adminController.getScenaristesAdmin)
-        .post(adminController.addScenariste)
-        .delete(adminController.deleteScenariste);
+        .get(adminGetController.getScenaristesAdmin)
+        .post(adminAddController.addScenariste)
+        .delete(adminDeleteController.deleteScenariste)
+        .patch(adminEditController.patchScenariste);
 
     app.route('/admin/series')
-        .get(adminController.getSeriesAdmin)
-        .post(adminController.addSerie)
-        .delete(adminController.deleteSerie);
+        .get(adminGetController.getSeriesAdmin)
+        .post(adminAddController.addSerie)
+        .delete(adminDeleteController.deleteSerie)
+        .patch(adminEditController.patchSerie);
 
 };

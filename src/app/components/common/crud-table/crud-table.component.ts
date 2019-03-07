@@ -64,8 +64,11 @@ export class CrudTableComponent implements OnInit {
   public editElement(element: AdminData): void {
     const editDialog = this.dialog.open(AddEditDialogComponent, {
       data: {
-        name: element.name,
-        description: element.description
+          id: element.id,
+          name: element.name,
+          description: element.description,
+          forbiddenNames: this.crudDataSource.data.filter(field => field.id !== element.id).map(field => field.name),
+          title: `Edition de ${element.name}`
       },
       minWidth: 400
     });
@@ -73,8 +76,12 @@ export class CrudTableComponent implements OnInit {
     editDialog.afterClosed()
       .subscribe(editedElement => {
         if (editedElement) {
-          element.name = editedElement.name;
-          element.description = editedElement.description;
+            this.adminService.editElement(this.componentName, editedElement).subscribe(response => {
+                if (response.status === 200) {
+                    element.name = editedElement.name;
+                    element.description = editedElement.description;
+                }
+            });
         }
       });
   }
@@ -91,7 +98,6 @@ export class CrudTableComponent implements OnInit {
       .subscribe(removeResponse => {
         if (removeResponse && removeResponse.confirm) {
             this.adminService.removeElement(this.componentName, element).subscribe(response => {
-                console.log(response);
                 if (response.status === 200) {
                     const index = this.crudDataSource.data.map(item => item.id).indexOf(element.id);
                     this.crudDataSource.data.splice(index, 1);
