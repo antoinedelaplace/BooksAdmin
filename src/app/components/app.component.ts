@@ -12,7 +12,7 @@ export class AppComponent {
 
   constructor() {
     this.navList = [
-      { name: 'Bandes dessinées', routerLink: '/comics' },
+      { name: 'BDs', routerLink: '/comics' },
       { name: 'Auteurs', routerLink: 'admin/auteurs' },
       { name: 'Dessinateurs', routerLink: 'admin/dessinateurs' },
       { name: 'Editeurs', routerLink: 'admin/editeurs' },

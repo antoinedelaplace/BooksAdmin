@@ -18,7 +18,6 @@ import { ScenaristesComponent } from './components/admin/scenaristes/scenaristes
 import { SeriesComponent } from './components/admin/series/series.component';
 import { AccueilComponent } from './components/accueil/accueil.component';
 import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { StatsComponent } from './components/stats/stats.component';
 import { ComicsComponent } from './components/comics/comics.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
@@ -55,7 +54,6 @@ export const MyDateFormat = {
     SeriesComponent,
     AccueilComponent,
     HeaderComponent,
-    FooterComponent,
     StatsComponent,
     ComicsComponent,
     SidenavComponent,
