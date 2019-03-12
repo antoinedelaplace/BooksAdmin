@@ -29,6 +29,7 @@ import { ComicsFormComponent } from './components/comics/comics-form/comics-form
 
 import {StatsService} from './services/stats.service';
 import {AdminService} from './services/admin.service';
+import {ComicsService} from './services/comics.service';
 
 
 export const MyDateFormat = {
@@ -79,7 +80,8 @@ export const MyDateFormat = {
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
     {provide: MAT_DATE_FORMATS, useValue: MyDateFormat},
     StatsService,
-    AdminService
+    AdminService,
+    ComicsService
   ],
   bootstrap: [AppComponent]
 })

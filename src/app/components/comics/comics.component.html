@@ -6,31 +6,31 @@
 
 <mat-form-field class="field-filter">
   <mat-select placeholder="Genre">
-    <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+    <mat-option *ngFor="let element of filtersComponents.genres" [value]="element.id">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field class="field-filter">
   <mat-select placeholder="Série">
-    <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+    <mat-option *ngFor="let element of filtersComponents.series" [value]="element.id">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field class="field-filter margin-left">
-  <mat-select placeholder="Créateur">
-    <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+  <mat-select placeholder="Auteur">
+    <mat-option *ngFor="let element of filtersComponents.auteurs" [value]="element.id">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field class="field-filter">
   <mat-select placeholder="Scénariste">
-    <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+    <mat-option *ngFor="let element of filtersComponents.scenaristes" [value]="element.id">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field class="field-filter">
   <mat-select placeholder="Dessinateur">
-    <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+    <mat-option *ngFor="let element of filtersComponents.dessinateurs" [value]="element.id">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 
@@ -43,22 +43,16 @@
       <td mat-cell *matCellDef="let row"> {{row.name}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="kind">
+    <ng-container matColumnDef="genre">
       <th mat-header-cell mat-sort-header
           *matHeaderCellDef class="kind-column"> Genre </th>
-      <td mat-cell *matCellDef="let row"> {{row.kind}} </td>
+      <td mat-cell *matCellDef="let row"> {{row.genre}} </td>
     </ng-container>
 
     <ng-container matColumnDef="serie">
       <th mat-header-cell mat-sort-header
           *matHeaderCellDef class="serie-column"> Série </th>
       <td mat-cell *matCellDef="let row"> {{row.serie}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="creator">
-      <th mat-header-cell mat-sort-header
-          *matHeaderCellDef class="creator-column"> Créateurs </th>
-      <td mat-cell *matCellDef="let row"> {{row.creator}} </td>
     </ng-container>
 
     <ng-container matColumnDef="actions">

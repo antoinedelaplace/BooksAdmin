@@ -12,3 +12,11 @@ export interface AdminData {
     description: string;
     insertId?: string;
 }
+
+export interface Comics {
+    id: string;
+    name: string;
+    genre: string;
+    serie: string;
+    id_auteur: number;
+}

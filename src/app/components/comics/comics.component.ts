@@ -2,6 +2,9 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {MatDialog, MatPaginator, MatSort, MatTableDataSource} from '@angular/material';
 import {ConfirmDialogComponent} from '../common/confirm-dialog/confirm-dialog.component';
 import {Router} from '@angular/router';
+import {AdminService} from '../../services/admin.service';
+import {ComicsService} from '../../services/comics.service';
+import {Comics} from '../../services/config-api';
 
 @Component({
   selector: 'app-comics',
@@ -10,68 +13,32 @@ import {Router} from '@angular/router';
 })
 export class ComicsComponent implements OnInit {
 
-  public dataSource: MatTableDataSource<Test>;
+  public dataSource: MatTableDataSource<Comics>;
   public displayedColumns: string[];
-  public listGenres: string[];
+
+  public readonly filtersComponents = {
+    genres: [],
+    series: [],
+    auteurs: [],
+    dessinateurs: [],
+    scenaristes: [],
+  };
 
   @ViewChild(MatPaginator) public paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     public dialog: MatDialog,
-    public router: Router
+    public router: Router,
+    public adminService: AdminService,
+    public comicsService: ComicsService
   ) {
   }
 
   ngOnInit() {
-    this.displayedColumns = ['name', 'kind', 'serie', 'creator', 'actions'];
-    this.dataSource = new MatTableDataSource<Test>([
-      {
-        id: '1',
-        name: 'astérix',
-        kind: 'genre 1',
-        serie: 'astérix',
-        creator: 'x'
-      },
-      {
-        id: '2',
-        name: 'astérix',
-        kind: 'genre 2',
-        serie: 'astérix',
-        creator: 'x'
-      },
-      {
-        id: '3',
-        name: 'lucky luke',
-        kind: 'genre 3',
-        serie: 'astérix',
-        creator: 'x'
-      },
-      {
-        id: '4',
-        name: 'lucky luke',
-        kind: 'genre 1',
-        serie: 'astérix',
-        creator: 'x'
-      },
-      {
-        id: '5',
-        name: 'alix',
-        kind: 'genre 3',
-        serie: 'astérix',
-        creator: 'x'
-      },
-      {
-        id: '6',
-        name: 'alix',
-        kind: 'genre 6',
-        serie: 'astérix',
-        creator: 'x'
-      }
-    ]);
-    this.listGenres = ['1', '2', '3', '4', '5'];
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.displayedColumns = ['name', 'genre', 'serie', 'actions'];
+    this.initFilters();
+    this.initDatas();
   }
 
   public applyFilter(filterValue: string) {
@@ -83,11 +50,11 @@ export class ComicsComponent implements OnInit {
     this.router.navigate(['comics/form']);
   }
 
-  public editElement(element: Test): void {
+  public editElement(element: Comics): void {
     this.router.navigate(['comics/form', {id: element.id}]);
   }
 
-  public deleteElement(element: Test): void {
+  public deleteElement(element: Comics): void {
     const removeDialog = this.dialog.open(ConfirmDialogComponent, {
       data: {
         elementName: element.name
@@ -105,13 +72,22 @@ export class ComicsComponent implements OnInit {
         }
       });
   }
-}
 
-export interface Test {
-  id: string;
-  name: string;
-  kind: string;
-  serie: string;
-  creator: string;
+  private initFilters(): void {
+    Object.keys(this.filtersComponents).forEach(component => {
+      this.adminService.getElements(component).subscribe(data => {
+        this.filtersComponents[component] = data.response;
+      });
+    });
+  }
+
+  private initDatas(): void {
+    this.comicsService.getAllComics().subscribe(data => {
+      console.log(data);
+      this.dataSource = new MatTableDataSource<Comics>(data.response);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
+  }
 }
 

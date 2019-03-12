@@ -1,6 +1,7 @@
 const express       = require('express');
 const statsRoutes   = require('./routes/statsRoutes');
 const adminRoutes   = require('./routes/adminRoutes');
+const comicsRoutes   = require('./routes/comicsRoutes');
 const cors          = require('cors');
 const bodyParser    = require('body-parser');
 
@@ -15,6 +16,7 @@ app.use(bodyParser.json());
 //API
 statsRoutes(app);
 adminRoutes(app);
+comicsRoutes(app);
 
 //Serveur
 app.get('/', function(req, res) {
