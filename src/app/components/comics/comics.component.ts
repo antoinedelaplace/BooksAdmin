@@ -71,10 +71,12 @@ export class ComicsComponent implements OnInit {
     removeDialog.afterClosed()
       .subscribe(removeResponse => {
         if (removeResponse && removeResponse.confirm) {
-          const index = this.dataSource.data.map(item => item.id).indexOf(element.id);
-          this.dataSource.data.splice(index, 1);
-          this.dataSource._updateChangeSubscription();
-          this.dataSource.paginator.firstPage();
+          this.comicsService.removeElement(element).subscribe(response => {
+            const index = this.dataSource.data.map(item => item.id).indexOf(element.id);
+            this.dataSource.data.splice(index, 1);
+            this.dataSource._updateChangeSubscription();
+            this.dataSource.paginator.firstPage();
+          });
         }
       });
   }

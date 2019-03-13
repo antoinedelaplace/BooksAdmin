@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AdminData, apiURL, JSONResponse} from './config-api';
+import {AdminData, apiURL, Comics, JSONResponse} from './config-api';
 import {Observable} from 'rxjs';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class ComicsService {
         return <Observable<JSONResponse>>this.http.post(`${apiURL}${this.comicsUrl}`, newElement, this.jsonHttpOptions);
     }
 
-    public removeElement(element: AdminData): Observable<JSONResponse> {
+    public removeElement(element: Comics): Observable<JSONResponse> {
         return <Observable<JSONResponse>>this.http.delete(`${apiURL}${this.comicsUrl}`, {params : { id : element.id }});
     }
 

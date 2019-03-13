@@ -2,8 +2,8 @@
 const sql = require('../connexion');
 
 exports.getAllComics = (req, res) => {
-    sql.query('select bd.titre AS name, genre.Nom_genre AS genre, serie.Nom_serie AS serie, auteur.id_auteur AS id_auteur, ' +
-              'scenariste.id_scenariste AS id_scenariste, dessinateur.id_dessinateur AS id_dessinateur ' +
+    sql.query('select bd.id_titre_bd AS id, bd.titre AS name, genre.Nom_genre AS genre, serie.Nom_serie AS serie, ' +
+              'auteur.id_auteur AS id_auteur, scenariste.id_scenariste AS id_scenariste, dessinateur.id_dessinateur AS id_dessinateur ' +
               'from TITRE_BD AS bd ' +
               'LEFT JOIN genre AS genre ON bd.id_genre = genre.id_genre ' +
               'LEFT JOIN serie AS serie ON bd.id_serie = serie.id_serie ' +
@@ -17,4 +17,11 @@ exports.getAllComics = (req, res) => {
             res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
         }
     );
+};
+
+exports.deleteComics = (req, res) => {
+    sql.query('DELETE FROM TITRE_BD WHERE id_titre_bd = '+ req.query.id, function (error, results) {
+        if (error) throw error;
+        res.send(JSON.stringify({"status": 200, "error": null, "response": results}));
+    });
 };

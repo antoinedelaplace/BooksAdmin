@@ -4,6 +4,7 @@ module.exports = function(app) {
     const comicsController = require('../controllers/comicsControllers');
 
     app.route('/comics')
-        .get(comicsController.getAllComics);
+        .get(comicsController.getAllComics)
+        .delete(comicsController.deleteComics);
 
 };
