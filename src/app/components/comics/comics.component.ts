@@ -15,6 +15,12 @@ export class ComicsComponent implements OnInit {
 
   public dataSource: MatTableDataSource<Comics>;
   public displayedColumns: string[];
+  public filterName = '';
+  public filterGenre: string;
+  public filterSerie: string;
+  public filterAuteur: number;
+  public filterDessinateur: number;
+  public filterScenariste: number;
 
   public readonly filtersComponents = {
     genres: [],
@@ -79,6 +85,41 @@ export class ComicsComponent implements OnInit {
         this.filtersComponents[component] = data.response;
       });
     });
+  }
+
+  private applySelectFilters(componentName: string, value: (string | number)): void {
+    if (value !== '') {
+      switch (componentName) {
+        case 'genre':
+          this.dataSource = new MatTableDataSource<Comics>(this.dataSource.data.filter(comics => comics.genre === value));
+          break;
+        case 'serie':
+          this.dataSource = new MatTableDataSource<Comics>(this.dataSource.data.filter(comics => comics.serie === value));
+          break;
+        case 'auteur':
+          this.dataSource = new MatTableDataSource<Comics>(this.dataSource.data.filter(comics => comics.id_auteur === value));
+          break;
+        case 'dessinateur':
+          this.dataSource = new MatTableDataSource<Comics>(this.dataSource.data.filter(comics => comics.id_dessinateur === value));
+          break;
+        case 'scenariste':
+          this.dataSource = new MatTableDataSource<Comics>(this.dataSource.data.filter(comics => comics.id_scenariste === value));
+          break;
+      }
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  public resetFilters(): void {
+    this.filterName = '';
+    this.filterAuteur = undefined;
+    this.filterDessinateur = undefined;
+    this.filterScenariste = undefined;
+    this.filterGenre = undefined;
+    this.filterSerie = undefined;
+    this.initDatas();
   }
 
   private initDatas(): void {

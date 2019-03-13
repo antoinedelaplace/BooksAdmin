@@ -1,4 +1,4 @@
 # TODO List
 
-- BDs !
+- create & delete & edit
 - Impression des BDs

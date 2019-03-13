@@ -1,36 +1,43 @@
 <h2>Mes bandes dessinées</h2>
 
 <mat-form-field id="filter" class="field-filter">
-  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Titre">
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Titre" [(ngModel)]="filterName">
 </mat-form-field>
 
 <mat-form-field class="field-filter">
-  <mat-select placeholder="Genre">
-    <mat-option *ngFor="let element of filtersComponents.genres" [value]="element.id">{{ element.name }}</mat-option>
+  <mat-select placeholder="Genre" (selectionChange)="applySelectFilters('genre', $event.value)" [(value)]="filterGenre">
+    <mat-option></mat-option>
+    <mat-option *ngFor="let element of filtersComponents.genres" [value]="element.name">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field class="field-filter">
-  <mat-select placeholder="Série">
-    <mat-option *ngFor="let element of filtersComponents.series" [value]="element.id">{{ element.name }}</mat-option>
+  <mat-select placeholder="Série" (selectionChange)="applySelectFilters('serie', $event.value)" [(value)]="filterSerie">
+      <mat-option></mat-option>
+      <mat-option *ngFor="let element of filtersComponents.series" [value]="element.name">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
+
+<button mat-stroked-button color="accent" (click)="resetFilters()"><mat-icon>replay</mat-icon>Réinitialiser les filtres</button>
 
 <mat-form-field class="field-filter margin-left">
-  <mat-select placeholder="Auteur">
-    <mat-option *ngFor="let element of filtersComponents.auteurs" [value]="element.id">{{ element.name }}</mat-option>
+  <mat-select placeholder="Auteur" (selectionChange)="applySelectFilters('auteur', $event.value)" [(value)]="filterAuteur">
+      <mat-option></mat-option>
+      <mat-option *ngFor="let element of filtersComponents.auteurs" [value]="element.id">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field class="field-filter">
-  <mat-select placeholder="Scénariste">
-    <mat-option *ngFor="let element of filtersComponents.scenaristes" [value]="element.id">{{ element.name }}</mat-option>
+  <mat-select placeholder="Scénariste" (selectionChange)="applySelectFilters('scenariste', $event.value)" [(value)]="filterScenariste">
+      <mat-option></mat-option>
+      <mat-option *ngFor="let element of filtersComponents.scenaristes" [value]="element.id">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field class="field-filter">
-  <mat-select placeholder="Dessinateur">
-    <mat-option *ngFor="let element of filtersComponents.dessinateurs" [value]="element.id">{{ element.name }}</mat-option>
+  <mat-select placeholder="Dessinateur" (selectionChange)="applySelectFilters('dessinateur', $event.value)" [(value)]="filterDessinateur">
+      <mat-option></mat-option>
+      <mat-option *ngFor="let element of filtersComponents.dessinateurs" [value]="element.id">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 

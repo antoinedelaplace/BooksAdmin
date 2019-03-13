@@ -19,4 +19,6 @@ export interface Comics {
     genre: string;
     serie: string;
     id_auteur: number;
+    id_dessinateur: number;
+    id_scenariste: number;
 }

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 import {MaterialModule} from './app-material.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -74,7 +75,8 @@ export const MyDateFormat = {
     MaterialModule,
     HttpClientModule,
     ReactiveFormsModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    FormsModule
   ],
   providers: [
     {provide: MAT_DATE_LOCALE, useValue: 'fr-FR'},
