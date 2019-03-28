@@ -2,11 +2,11 @@
   Bandes dessinées > {{title}}
 </h2>
 <mat-card class="form-card">
-  <form [formGroup]="comicsFormGroup">
+  <form [formGroup]="comicsFormGroup" (ngSubmit)="save()">
     <div class="form-col-left">
       <mat-form-field class="left-field">
         <mat-label>Titre</mat-label>
-        <input matInput formControlName="name">
+        <input matInput formControlName="name" required>
       </mat-form-field>
       <br />
       <mat-form-field class="left-field">
@@ -15,14 +15,16 @@
       </mat-form-field>
       <br />
       <mat-form-field class="field-filter left-field">
-        <mat-select placeholder="Genre">
-          <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+        <mat-select placeholder="Genre" formControlName="genre">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let element of selectsComponents.genres" [value]="element.id">{{ element.name }}</mat-option>
         </mat-select>
       </mat-form-field>
       <br />
       <mat-form-field class="field-filter left-field">
-        <mat-select placeholder="Série">
-          <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+        <mat-select placeholder="Série" formControlName="serie">
+          <mat-option></mat-option>
+          <mat-option *ngFor="let element of selectsComponents.series" [value]="element.id">{{ element.name }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
@@ -30,94 +32,92 @@
       <mat-tab-group class="form-mat-tab-group">
         <mat-tab label="Créateurs">
           <mat-form-field class="field-filter createur-field margin-top">
-            <mat-select placeholder="Créateur">
-              <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+            <mat-select placeholder="Auteur" formControlName="auteur">
+              <mat-option *ngFor="let element of selectsComponents.auteurs" [value]="element.id">{{ element.name }}</mat-option>
             </mat-select>
           </mat-form-field>
           <br />
           <mat-form-field class="field-filter createur-field">
-            <mat-select placeholder="Scénariste">
-              <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+            <mat-select placeholder="Scénariste" formControlName="scenariste">
+              <mat-option *ngFor="let element of selectsComponents.scenaristes" [value]="element.id">{{ element.name }}</mat-option>
             </mat-select>
           </mat-form-field>
           <br />
           <mat-form-field class="field-filter createur-field">
-            <mat-select placeholder="Dessinateur">
-              <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+            <mat-select placeholder="Dessinateur" formControlName="dessinateur">
+              <mat-option *ngFor="let element of selectsComponents.dessinateurs" [value]="element.id">{{ element.name }}</mat-option>
             </mat-select>
           </mat-form-field>
         </mat-tab>
         <mat-tab label="Editeurs">
           <h4>Editions Originales</h4>
           <mat-form-field class="field-filter editeur-field-35">
-            <mat-select placeholder="Maison d'édition">
-              <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+            <mat-select placeholder="Maison d'édition" formControlName="maisonEditionOriginale">
+              <mat-option *ngFor="let element of selectsComponents.maisonEditions" [value]="element.id">{{ element.name }}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="editeur-field-35">
             <mat-label>Date de sortie</mat-label>
-            <input matInput [matDatepicker]="sortieEdition" placeholder="jj/mm/aaaa">
+            <input matInput [matDatepicker]="sortieEdition" disabled="disabled" formControlName="dateSortieEditionOriginale">
             <mat-datepicker-toggle matSuffix [for]="sortieEdition"></mat-datepicker-toggle>
-            <mat-datepicker #sortieEdition></mat-datepicker>
+            <mat-datepicker #sortieEdition disabled="false"></mat-datepicker>
           </mat-form-field>
-          <mat-slide-toggle
-            [checked]="checked">
+          <mat-slide-toggle formControlName="dedicaceOriginale">
             Dédicacée
           </mat-slide-toggle>
           <mat-form-field class="editeur-field-40">
             <mat-label>Date d'impression</mat-label>
-            <input matInput [matDatepicker]="impressionEdition" placeholder="jj/mm/aaaa">
+            <input matInput [matDatepicker]="impressionEdition" disabled formControlName="dateImpressionOriginale">
             <mat-datepicker-toggle matSuffix [for]="impressionEdition"></mat-datepicker-toggle>
-            <mat-datepicker #impressionEdition></mat-datepicker>
+            <mat-datepicker #impressionEdition disabled="false"></mat-datepicker>
           </mat-form-field>
           <mat-form-field class="editeur-field-40">
             <mat-label>Numéro ISBN</mat-label>
-            <input matInput formControlName="name">
+            <input matInput formControlName="isbnOriginale">
           </mat-form-field>
           <h4>Rééditions</h4>
           <mat-form-field class="field-filter editeur-field-35">
-            <mat-select placeholder="Maison d'édition">
-              <mat-option *ngFor="let element of listGenres" [value]="element">{{ element }}</mat-option>
+            <mat-select placeholder="Maison d'édition" formControlName="maisonEditionReedition">
+              <mat-option *ngFor="let element of selectsComponents.maisonEditions" [value]="element.id">{{ element.name }}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-form-field class="editeur-field-35">
             <mat-label>Date de sortie</mat-label>
-            <input matInput [matDatepicker]="sortieReedition" placeholder="jj/mm/aaaa">
+            <input matInput [matDatepicker]="sortieReedition" formControlName="dateSortieEditionReedition">
             <mat-datepicker-toggle matSuffix [for]="sortieReedition"></mat-datepicker-toggle>
-            <mat-datepicker #sortieReedition></mat-datepicker>
+            <mat-datepicker #sortieReedition disabled="false"></mat-datepicker>
           </mat-form-field>
-          <mat-slide-toggle
-            [checked]="checked">
+          <mat-slide-toggle formControlName="dedicaceReedition">
             Dédicacée
           </mat-slide-toggle>
           <mat-form-field class="editeur-field-40">
             <mat-label>Date d'impression</mat-label>
-            <input matInput [matDatepicker]="impressionReedition" placeholder="jj/mm/aaaa">
+            <input matInput [matDatepicker]="impressionReedition" formControlName="dateImpressionReedition">
             <mat-datepicker-toggle matSuffix [for]="impressionReedition"></mat-datepicker-toggle>
-            <mat-datepicker #impressionReedition></mat-datepicker>
+            <mat-datepicker #impressionReedition disabled="false"></mat-datepicker>
           </mat-form-field>
           <mat-form-field class="editeur-field-40">
             <mat-label>Numéro ISBN</mat-label>
-            <input matInput formControlName="name">
+            <input matInput formControlName="isbnReedition">
           </mat-form-field>
         </mat-tab>
-        <mat-tab label="Prêts">
+        <mat-tab label="Prêts" *ngIf="!isCreation">
           <h4>Prêts effectués</h4>
           <mat-form-field class="pret-field-30">
             <mat-label>Nom</mat-label>
-            <input matInput formControlName="name">
+            <input matInput formControlName="nomPret">
           </mat-form-field>
           <mat-form-field class="pret-field-30">
             <mat-label>Date de début</mat-label>
-            <input matInput formControlName="name" [matDatepicker]="dateDebut" placeholder="jj/mm/aaaa">
-            <mat-datepicker-toggle matSuffix [for]="dateDebut"></mat-datepicker-toggle>
-            <mat-datepicker #dateDebut></mat-datepicker>
+            <input matInput [matDatepicker]="dateDebutPret" formControlName="dateDebutPret">
+            <mat-datepicker-toggle matSuffix [for]="dateDebutPret"></mat-datepicker-toggle>
+            <mat-datepicker #dateDebutPret disabled="false"></mat-datepicker>
           </mat-form-field>
           <mat-form-field class="pret-field-30">
             <mat-label>Date de fin</mat-label>
-            <input matInput formControlName="name" [matDatepicker]="dateFin" placeholder="jj/mm/aaaa">
-            <mat-datepicker-toggle matSuffix [for]="dateFin"></mat-datepicker-toggle>
-            <mat-datepicker #dateFin></mat-datepicker>
+            <input matInput [matDatepicker]="dateFinPret" formControlName="dateFinPret">
+            <mat-datepicker-toggle matSuffix [for]="dateFinPret"></mat-datepicker-toggle>
+            <mat-datepicker #dateFinPret disabled="false"></mat-datepicker>
           </mat-form-field>
         </mat-tab>
       </mat-tab-group>
@@ -125,7 +125,7 @@
         <button mat-button color="warn" routerLink="/comics">
           <span translate>Annuler</span>
         </button>
-        <button mat-button color="primary" (click)="save()">
+        <button mat-button color="primary" type="submit" [disabled]="comicsFormGroup.invalid">
           <span translate>Sauvegarder</span>
         </button>
       </div>

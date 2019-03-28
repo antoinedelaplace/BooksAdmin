@@ -5,6 +5,10 @@ module.exports = function(app) {
 
     app.route('/comics')
         .get(comicsController.getAllComics)
+        .post(comicsController.addComics)
         .delete(comicsController.deleteComics);
 
+    app.route('/comics/:id')
+        .get(comicsController.getComics)
+        .patch(comicsController.patchComics);
 };

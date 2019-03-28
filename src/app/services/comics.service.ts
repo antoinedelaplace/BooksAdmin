@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AdminData, apiURL, Comics, JSONResponse} from './config-api';
+import {apiURL, Comics, JSONResponse} from './config-api';
 import {Observable} from 'rxjs';
 
 @Injectable()
@@ -17,7 +17,11 @@ export class ComicsService {
         return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.comicsUrl}`);
     }
 
-    public insertElement(newElement: AdminData): Observable<JSONResponse> {
+    public getComics(comicsId: string): Observable<JSONResponse> {
+        return <Observable<JSONResponse>>this.http.get(`${apiURL}${this.comicsUrl}/${comicsId}`);
+    }
+
+    public insertElement(newElement: Comics): Observable<JSONResponse> {
         return <Observable<JSONResponse>>this.http.post(`${apiURL}${this.comicsUrl}`, newElement, this.jsonHttpOptions);
     }
 
@@ -25,7 +29,7 @@ export class ComicsService {
         return <Observable<JSONResponse>>this.http.delete(`${apiURL}${this.comicsUrl}`, {params : { id : element.id }});
     }
 
-    public editElement(editElement: AdminData): Observable<JSONResponse> {
-        return <Observable<JSONResponse>>this.http.patch(`${apiURL}${this.comicsUrl}`, editElement, this.jsonHttpOptions);
+    public editElement(editElement: Comics): Observable<JSONResponse> {
+        return <Observable<JSONResponse>>this.http.patch(`${apiURL}${this.comicsUrl}/${editElement.id}`, editElement, this.jsonHttpOptions);
     }
 }

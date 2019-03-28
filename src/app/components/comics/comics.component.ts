@@ -126,7 +126,6 @@ export class ComicsComponent implements OnInit {
 
   private initDatas(): void {
     this.comicsService.getAllComics().subscribe(data => {
-      console.log(data);
       this.dataSource = new MatTableDataSource<Comics>(data.response);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

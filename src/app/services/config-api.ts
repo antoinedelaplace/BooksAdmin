@@ -18,7 +18,21 @@ export interface Comics {
     name: string;
     genre: string;
     serie: string;
+    comments?: string;
     id_auteur: number;
     id_dessinateur: number;
     id_scenariste: number;
+    maisonEditionOriginale?: string;
+    dateSortieEditionOriginale?: string;
+    dateImpressionOriginale?: string;
+    dedicaceOriginale?: boolean;
+    isbnOriginale?: string;
+    maisonEditionReedition?: string;
+    dateSortieEditionReedition?: string;
+    dateImpressionReedition?: string;
+    dedicaceReedition?: boolean;
+    isbnReedition?: string;
+    nomPret?: string;
+    dateDebutPret?: string;
+    dateFinPret?: string;
 }
