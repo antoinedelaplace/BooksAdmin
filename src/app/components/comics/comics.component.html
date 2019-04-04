@@ -5,14 +5,14 @@
 </mat-form-field>
 
 <mat-form-field class="field-filter">
-  <mat-select placeholder="Genre" (selectionChange)="applySelectFilters('genre', $event.value)" [(value)]="filterGenre">
+  <mat-select placeholder="Genre" (selectionChange)="applySelectFilters($event.value)" [(value)]="filterGenre">
     <mat-option></mat-option>
     <mat-option *ngFor="let element of filtersComponents.genres" [value]="element.name">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field class="field-filter">
-  <mat-select placeholder="Série" (selectionChange)="applySelectFilters('serie', $event.value)" [(value)]="filterSerie">
+  <mat-select placeholder="Série" (selectionChange)="applySelectFilters($event.value)" [(value)]="filterSerie">
       <mat-option></mat-option>
       <mat-option *ngFor="let element of filtersComponents.series" [value]="element.name">{{ element.name }}</mat-option>
   </mat-select>
@@ -21,21 +21,21 @@
 <button mat-stroked-button color="accent" (click)="resetFilters()"><mat-icon>replay</mat-icon>Réinitialiser les filtres</button>
 
 <mat-form-field class="field-filter margin-left">
-  <mat-select placeholder="Auteur" (selectionChange)="applySelectFilters('auteur', $event.value)" [(value)]="filterAuteur">
+  <mat-select placeholder="Auteur" (selectionChange)="applySelectFilters($event.value)" [(value)]="filterAuteur">
       <mat-option></mat-option>
       <mat-option *ngFor="let element of filtersComponents.auteurs" [value]="element.id">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field class="field-filter">
-  <mat-select placeholder="Scénariste" (selectionChange)="applySelectFilters('scenariste', $event.value)" [(value)]="filterScenariste">
+  <mat-select placeholder="Scénariste" (selectionChange)="applySelectFilters($event.value)" [(value)]="filterScenariste">
       <mat-option></mat-option>
       <mat-option *ngFor="let element of filtersComponents.scenaristes" [value]="element.id">{{ element.name }}</mat-option>
   </mat-select>
 </mat-form-field>
 
 <mat-form-field class="field-filter">
-  <mat-select placeholder="Dessinateur" (selectionChange)="applySelectFilters('dessinateur', $event.value)" [(value)]="filterDessinateur">
+  <mat-select placeholder="Dessinateur" (selectionChange)="applySelectFilters($event.value)" [(value)]="filterDessinateur">
       <mat-option></mat-option>
       <mat-option *ngFor="let element of filtersComponents.dessinateurs" [value]="element.id">{{ element.name }}</mat-option>
   </mat-select>
@@ -82,5 +82,5 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="editable"></tr>
   </table>
 
-  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20, 50, 100]" showFirstLastButtons></mat-paginator>
 </div>

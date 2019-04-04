@@ -14,6 +14,7 @@ import {Comics} from '../../services/config-api';
 export class ComicsComponent implements OnInit {
 
   public dataSource: MatTableDataSource<Comics>;
+  public comicsList: Comics[];
   public displayedColumns: string[];
   public filterName = '';
   public filterGenre: string;
@@ -38,13 +39,12 @@ export class ComicsComponent implements OnInit {
     public router: Router,
     public adminService: AdminService,
     public comicsService: ComicsService
-  ) {
-  }
+  ) { }
 
   ngOnInit() {
     this.displayedColumns = ['name', 'genre', 'serie', 'actions'];
     this.initFilters();
-    this.initDatas();
+    this.initData();
   }
 
   public applyFilter(filterValue: string) {
@@ -72,13 +72,46 @@ export class ComicsComponent implements OnInit {
       .subscribe(removeResponse => {
         if (removeResponse && removeResponse.confirm) {
           this.comicsService.removeElement(element).subscribe(response => {
-            const index = this.dataSource.data.map(item => item.id).indexOf(element.id);
-            this.dataSource.data.splice(index, 1);
-            this.dataSource._updateChangeSubscription();
-            this.dataSource.paginator.firstPage();
+            const index = this.comicsList.map(item => item.id).indexOf(element.id);
+            this.comicsList.splice(index, 1);
+            this.initDataSource(this.comicsList);
           });
         }
       });
+  }
+
+
+  public resetFilters(): void {
+    this.filterName = '';
+    this.filterAuteur = undefined;
+    this.filterDessinateur = undefined;
+    this.filterScenariste = undefined;
+    this.filterGenre = undefined;
+    this.filterSerie = undefined;
+    this.initData();
+  }
+
+  public applySelectFilters(value: (string | number)): void {
+    if (value !== '' && value !== undefined) {
+      let newDataSource = this.comicsList;
+
+      if (this.filterGenre !== undefined) {
+        newDataSource = newDataSource.filter(comics => comics.genre === this.filterGenre);
+      }
+      if (this.filterSerie !== undefined) {
+        newDataSource = newDataSource.filter(comics => comics.serie === this.filterSerie);
+      }
+      if (this.filterDessinateur !== undefined) {
+        newDataSource = newDataSource.filter(comics => comics.id_dessinateur === this.filterDessinateur);
+      }
+      if (this.filterAuteur !== undefined) {
+        newDataSource = newDataSource.filter(comics => comics.id_auteur === this.filterAuteur);
+      }
+      if (this.filterScenariste !== undefined) {
+        newDataSource = newDataSource.filter(comics => comics.id_scenariste === this.filterScenariste);
+      }
+      this.initDataSource(newDataSource);
+    }
   }
 
   private initFilters(): void {
@@ -89,46 +122,17 @@ export class ComicsComponent implements OnInit {
     });
   }
 
-  private applySelectFilters(componentName: string, value: (string | number)): void {
-    if (value !== '') {
-      switch (componentName) {
-        case 'genre':
-          this.dataSource = new MatTableDataSource<Comics>(this.dataSource.data.filter(comics => comics.genre === value));
-          break;
-        case 'serie':
-          this.dataSource = new MatTableDataSource<Comics>(this.dataSource.data.filter(comics => comics.serie === value));
-          break;
-        case 'auteur':
-          this.dataSource = new MatTableDataSource<Comics>(this.dataSource.data.filter(comics => comics.id_auteur === value));
-          break;
-        case 'dessinateur':
-          this.dataSource = new MatTableDataSource<Comics>(this.dataSource.data.filter(comics => comics.id_dessinateur === value));
-          break;
-        case 'scenariste':
-          this.dataSource = new MatTableDataSource<Comics>(this.dataSource.data.filter(comics => comics.id_scenariste === value));
-          break;
-      }
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator.firstPage();
-    }
+  private initDataSource(data: Comics[]): void {
+    this.comicsList = data;
+    this.dataSource = new MatTableDataSource<Comics>(data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator.firstPage();
   }
 
-  public resetFilters(): void {
-    this.filterName = '';
-    this.filterAuteur = undefined;
-    this.filterDessinateur = undefined;
-    this.filterScenariste = undefined;
-    this.filterGenre = undefined;
-    this.filterSerie = undefined;
-    this.initDatas();
-  }
-
-  private initDatas(): void {
+  private initData(): void {
     this.comicsService.getAllComics().subscribe(data => {
-      this.dataSource = new MatTableDataSource<Comics>(data.response);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.initDataSource(data.response);
     });
   }
 }
