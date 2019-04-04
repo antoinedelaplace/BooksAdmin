@@ -123,7 +123,6 @@ export class ComicsComponent implements OnInit {
   }
 
   private initDataSource(data: Comics[]): void {
-    this.comicsList = data;
     this.dataSource = new MatTableDataSource<Comics>(data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -132,6 +131,7 @@ export class ComicsComponent implements OnInit {
 
   private initData(): void {
     this.comicsService.getAllComics().subscribe(data => {
+      this.comicsList = data.response;
       this.initDataSource(data.response);
     });
   }
