@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {AdminService} from '../../services/admin.service';
 import {ComicsService} from '../../services/comics.service';
 import {Comics} from '../../services/config-api';
+import {FiltersService} from '../../services/filters.service';
 
 @Component({
   selector: 'app-comics',
@@ -17,11 +18,6 @@ export class ComicsComponent implements OnInit {
   public comicsList: Comics[];
   public displayedColumns: string[];
   public filterName = '';
-  public filterGenre: string;
-  public filterSerie: string;
-  public filterAuteur: number;
-  public filterDessinateur: number;
-  public filterScenariste: number;
 
   public readonly filtersComponents = {
     genres: [],
@@ -38,7 +34,8 @@ export class ComicsComponent implements OnInit {
     public dialog: MatDialog,
     public router: Router,
     public adminService: AdminService,
-    public comicsService: ComicsService
+    public comicsService: ComicsService,
+    public filtersService: FiltersService
   ) { }
 
   ngOnInit() {
@@ -83,11 +80,11 @@ export class ComicsComponent implements OnInit {
 
   public resetFilters(): void {
     this.filterName = '';
-    this.filterAuteur = undefined;
-    this.filterDessinateur = undefined;
-    this.filterScenariste = undefined;
-    this.filterGenre = undefined;
-    this.filterSerie = undefined;
+    this.filtersService.comicsFilters.filterAuteur = undefined;
+    this.filtersService.comicsFilters.filterDessinateur = undefined;
+    this.filtersService.comicsFilters.filterScenariste = undefined;
+    this.filtersService.comicsFilters.filterGenre = undefined;
+    this.filtersService.comicsFilters.filterSerie = undefined;
     this.initData();
   }
 
@@ -95,20 +92,25 @@ export class ComicsComponent implements OnInit {
     if (value !== '' && value !== undefined) {
       let newDataSource = this.comicsList;
 
-      if (this.filterGenre !== undefined) {
-        newDataSource = newDataSource.filter(comics => comics.genre === this.filterGenre);
+      if (this.filtersService.comicsFilters.filterGenre !== undefined) {
+        newDataSource = newDataSource.filter(
+            comics => comics.genre === this.filtersService.comicsFilters.filterGenre);
       }
-      if (this.filterSerie !== undefined) {
-        newDataSource = newDataSource.filter(comics => comics.serie === this.filterSerie);
+      if (this.filtersService.comicsFilters.filterSerie !== undefined) {
+        newDataSource = newDataSource.filter(
+            comics => comics.serie === this.filtersService.comicsFilters.filterSerie);
       }
-      if (this.filterDessinateur !== undefined) {
-        newDataSource = newDataSource.filter(comics => comics.id_dessinateur === this.filterDessinateur);
+      if (this.filtersService.comicsFilters.filterDessinateur !== undefined) {
+        newDataSource = newDataSource.filter(
+            comics => comics.id_dessinateur === this.filtersService.comicsFilters.filterDessinateur);
       }
-      if (this.filterAuteur !== undefined) {
-        newDataSource = newDataSource.filter(comics => comics.id_auteur === this.filterAuteur);
+      if (this.filtersService.comicsFilters.filterAuteur !== undefined) {
+        newDataSource = newDataSource.filter(
+            comics => comics.id_auteur === this.filtersService.comicsFilters.filterAuteur);
       }
-      if (this.filterScenariste !== undefined) {
-        newDataSource = newDataSource.filter(comics => comics.id_scenariste === this.filterScenariste);
+      if (this.filtersService.comicsFilters.filterScenariste !== undefined) {
+        newDataSource = newDataSource.filter(
+            comics => comics.id_scenariste === this.filtersService.comicsFilters.filterScenariste);
       }
       this.initDataSource(newDataSource);
     }

@@ -31,6 +31,7 @@ import { ComicsFormComponent } from './components/comics/comics-form/comics-form
 import {StatsService} from './services/stats.service';
 import {AdminService} from './services/admin.service';
 import {ComicsService} from './services/comics.service';
+import {FiltersService} from './services/filters.service';
 
 
 export const MyDateFormat = {
@@ -83,7 +84,8 @@ export const MyDateFormat = {
     {provide: MAT_DATE_FORMATS, useValue: MyDateFormat},
     StatsService,
     AdminService,
-    ComicsService
+    ComicsService,
+    FiltersService
   ],
   bootstrap: [AppComponent]
 })
