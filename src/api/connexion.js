@@ -1,16 +1,16 @@
 const mysql         = require("mysql");
 
-const host          = 'localhost';
-const user          = 'root';
-const password      = 'root';
+const host          = 'mysql_db';
+const user          = 'appli';
+const password      = 'appliBDpassword';
 const database      = 'bd_bdguy';
-const databasePort  = 1025;
+const databasePort  = 3306;
 
 const connection = mysql.createConnection({
     host     : host,
     user     : user,
-    port     : databasePort,
     password : password,
+    port     : databasePort,
     database : database
 });
 
