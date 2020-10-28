@@ -17,6 +17,5 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 ## TODO Now
 
-- create Dockerfile with 3 containers (angular, api, bdd)
 - add in bdd the number field
 - print all Comics 
