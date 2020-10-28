@@ -15,14 +15,14 @@
       </mat-form-field>
       <br />
       <mat-form-field class="field-filter left-field">
-        <mat-select placeholder="Genre" formControlName="genre">
+        <mat-select placeholder="Genre" formControlName="genre" required>
           <mat-option></mat-option>
           <mat-option *ngFor="let element of selectsComponents.genres" [value]="element.id">{{ element.name }}</mat-option>
         </mat-select>
       </mat-form-field>
       <br />
       <mat-form-field class="field-filter left-field">
-        <mat-select placeholder="Série" formControlName="serie">
+        <mat-select placeholder="Série" formControlName="serie" required>
           <mat-option></mat-option>
           <mat-option *ngFor="let element of selectsComponents.series" [value]="element.id">{{ element.name }}</mat-option>
         </mat-select>
