@@ -1,7 +1,7 @@
 const mysql         = require("mysql");
 
-const host          = 'mysql_db';
-const user          = 'appli';
+const host          = 'localhost';
+const user          = 'BD';
 const password      = 'appliBDpassword';
 const database      = 'bd_bdguy';
 const databasePort  = 3306;

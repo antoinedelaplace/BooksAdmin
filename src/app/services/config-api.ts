@@ -1,4 +1,4 @@
-export const apiURL = 'http://localhost:3000';
+export const apiURL = 'http://localhost:3000/api';
 
 export interface JSONResponse {
     status: number;

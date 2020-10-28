@@ -3,31 +3,31 @@
 module.exports = function(app) {
     const statsController = require('../controllers/statsControllers');
 
-    app.route('/stats')
+    app.route('/api/stats')
         .get(statsController.getAllStats);
 
-    app.route('/stats/auteurs')
+    app.route('/api/stats/auteurs')
         .get(statsController.getAuteursStats);
 
-    app.route('/stats/dessinateurs')
+    app.route('/api/stats/dessinateurs')
         .get(statsController.getDessinateursStats);
 
-    app.route('/stats/editionsOriginales')
+    app.route('/api/stats/editionsOriginales')
         .get(statsController.getEditionsOriginalesStats);
 
-    app.route('/stats/genres')
+    app.route('/api/stats/genres')
         .get(statsController.getGenresStats);
 
-    app.route('/stats/maisonEditions')
+    app.route('/api/stats/maisonEditions')
         .get(statsController.getMaisonEditionsStats);
 
-    app.route('/stats/reeditions')
+    app.route('/api/stats/reeditions')
         .get(statsController.getReeditionsStats);
 
-    app.route('/stats/scenaristes')
+    app.route('/api/stats/scenaristes')
         .get(statsController.getScenaristesStats);
 
-    app.route('/stats/series')
+    app.route('/api/stats/series')
         .get(statsController.getSeriesStats);
 
 };

@@ -3,12 +3,12 @@
 module.exports = function(app) {
     const comicsController = require('../controllers/comicsControllers');
 
-    app.route('/comics')
+    app.route('/api/comics')
         .get(comicsController.getAllComics)
         .post(comicsController.addComics)
         .delete(comicsController.deleteComics);
 
-    app.route('/comics/:id')
+    app.route('/api/comics/:id')
         .get(comicsController.getComics)
         .patch(comicsController.patchComics);
 };

@@ -6,37 +6,37 @@ module.exports = function(app) {
     const adminEditController = require('../controllers/adminEditControllers');
     const adminAddController = require('../controllers/adminAddControllers');
 
-    app.route('/admin/auteurs')
+    app.route('/api/admin/auteurs')
         .get(adminGetController.getAuteursAdmin)
         .post(adminAddController.addAuteur)
         .delete(adminDeleteController.deleteAuteur)
         .patch(adminEditController.patchAuteur);
 
-    app.route('/admin/dessinateurs')
+    app.route('/api/admin/dessinateurs')
         .get(adminGetController.getDessinateursAdmin)
         .post(adminAddController.addDessinateur)
         .delete(adminDeleteController.deleteDessinateur)
         .patch(adminEditController.patchDessinateur);
 
-    app.route('/admin/maisonEditions')
+    app.route('/api/admin/maisonEditions')
         .get(adminGetController.getMaisonEditionsAdmin)
         .post(adminAddController.addMaisonEditions)
         .delete(adminDeleteController.deleteMaisonEditions)
         .patch(adminEditController.patchMaisonEditions);
 
-    app.route('/admin/genres')
+    app.route('/api/admin/genres')
         .get(adminGetController.getGenresAdmin)
         .post(adminAddController.addGenre)
         .delete(adminDeleteController.deleteGenre)
         .patch(adminEditController.patchGenre);
 
-    app.route('/admin/scenaristes')
+    app.route('/api/admin/scenaristes')
         .get(adminGetController.getScenaristesAdmin)
         .post(adminAddController.addScenariste)
         .delete(adminDeleteController.deleteScenariste)
         .patch(adminEditController.patchScenariste);
 
-    app.route('/admin/series')
+    app.route('/api/admin/series')
         .get(adminGetController.getSeriesAdmin)
         .post(adminAddController.addSerie)
         .delete(adminDeleteController.deleteSerie)
