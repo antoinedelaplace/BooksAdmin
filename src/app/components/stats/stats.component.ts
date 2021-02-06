@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {StatsService} from '../../services/stats.service';
+import {ExportToCSV} from "@molteni/export-csv"; 
+import {ComicsService} from 'src/app/services/comics.service';
 
 export interface DetailStats {
   name: string;
@@ -23,7 +25,10 @@ export class StatsComponent implements OnInit {
 
   public detailsStats;
 
-  constructor(private statsService: StatsService) { }
+  constructor(
+    private statsService: StatsService,
+    private comicsService: ComicsService
+    ) { }
 
   ngOnInit() {
     this.initDetailsStats();
@@ -40,6 +45,14 @@ export class StatsComponent implements OnInit {
     });
   }
 
+  public exportDataToCsv(): void  {
+    this.comicsService.getAllComics().subscribe(data => {
+      var exporter = new ExportToCSV();
+      exporter.setOptions({ separator: ',' }); 
+      exporter.exportColumnsToCSV(data.response, 'bds.csv', ['name', 'genre', 'serie']); 
+    });
+  }
+ 
   private initDetailsStats(): void {
     this.detailsStats = [
       {

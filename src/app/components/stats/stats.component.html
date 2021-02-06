@@ -1,4 +1,7 @@
 <h2>Statistiques</h2>
+<button class="export-button" mat-stroked-button color="accent" (click)="exportDataToCsv()">
+  EXPORT EXCEL
+</button>
 <div class="accordion">
   <mat-accordion class="stats-accordion">
     <mat-expansion-panel *ngFor="let stats of detailsStats;" [disabled]="stats.disabled" (opened)="fillCurrentStats(stats)">
